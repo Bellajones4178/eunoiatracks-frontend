@@ -21,7 +21,7 @@ function App() {
 
 function Content() {
   const location = useLocation();
-  const showNavigation = ["/dashboard", "/grantdetails", "/uploaddocument", "/trackgrantresearch", "/home"].includes(location.pathname);
+  const showNavigation = ["/dashboard", "/grantdetails", "/uploaddocument", "/trackgrantresearch", "/"].includes(location.pathname);
 
   return (
     <main>
