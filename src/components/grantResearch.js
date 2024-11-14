@@ -7,12 +7,12 @@ function GrantResearch() {
 
     const statuses = ["LOI Needed", "Contacted", "Applied", "Rejected", "Approved"];
 
-    // Fetch all grants when the component mounts
+
     useEffect(() => {
         fetchGrants();
     }, []);
 
-    // Function to fetch all grants from the API
+    // Get all grants
     const fetchGrants = async () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants`);
@@ -25,7 +25,7 @@ function GrantResearch() {
         }
     };
 
-    // Function to delete a specific grant
+    // Delete Specific Grant
     const handleDeleteGrant = async (grantId) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants/${grantId}`, {
@@ -44,7 +44,6 @@ function GrantResearch() {
         }
     };
 
-    // Rendering of the grants list and management actions
     return (
         <div>
             <h2>Potential Grants</h2>

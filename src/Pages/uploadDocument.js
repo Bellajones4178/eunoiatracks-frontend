@@ -1,11 +1,12 @@
 import React from 'react';
-import Upload from  '../components/upload';
+import GrantTable from '../components/upload';
+
 
 function UploadDocument() {
   return (
     <div>
       <h1>File Upload</h1>
-      <Upload />
+      <GrantTable />
     </div>
   );
 }

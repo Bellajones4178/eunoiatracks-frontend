@@ -5,7 +5,7 @@ export const EditPotentialGrant = ({ grantToEdit }) => {
     const { grantId } = useParams();
     const navigate = useNavigate();
 
-    // Initialize state only if grantToEdit exists, otherwise use default values
+
     const [grant, setGrant] = useState(grantToEdit || {
         grantName: '',
         type: '',
@@ -18,7 +18,7 @@ export const EditPotentialGrant = ({ grantToEdit }) => {
 
     const [message, setMessage] = useState('');
 
-    // Fetch grant data if it's not provided as a prop
+
     useEffect(() => {
         if (!grantToEdit) {
             const fetchGrant = async () => {
@@ -64,7 +64,7 @@ export const EditPotentialGrant = ({ grantToEdit }) => {
         }
     };
 
-    // If the data has not yet loaded, show a loading message
+
     if (!grant) {
         return <p>Loading grant details...</p>;
     }

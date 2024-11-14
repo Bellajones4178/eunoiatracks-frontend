@@ -1,72 +1,110 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// function Upload() {
-//     const [file, setFile] = useState(null);
-//     const [message, setMessage] = useState('');
-//     const [files, setFiles] = useState([]);
+function GrantTable() {
+    const [grants, setGrants] = useState([]);
+    const [message, setMessage] = useState("");
 
-//     useEffect(() => {
-//         fetchFiles();
-//     }, []);
+    useEffect(() => {
+        fetchGrants();
+    }, []);
 
-//     const fetchFiles = async () => {
-//         const response = await fetch('${process.env.REACT_APP_API_URL}/files');
-//         const data = await response.json();
-//         setFiles(data);
-//     };
+    const fetchGrants = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/grants');
+            const data = await response.json();
+            setGrants(data);
+        } catch (error) {
+            console.error("Error fetching grants:", error);
+            setMessage("Failed to load grants.");
+        }
+    };
 
-//     const handleFileChange = (e) => {
-//         setFile(e.target.files[0]);
-//     };
+    const fetchGrantFiles = async (grantId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/grants/${grantId}/files`);
+            const files = await response.json();
+            return files;
+        } catch (error) {
+            console.error("Error fetching grant files:", error);
+            return [];
+        }
+    };
 
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         if (!file) {
-//             setMessage("Please select a file first");
-//             return;
-//         }
+    const handleFileUpload = async (event, grantId) => {
+        const file = event.target.files[0];
+        if (!file) return;
 
-//         const formData = new FormData();
-//         formData.append('file', file);
+        const formData = new FormData();
+        formData.append("file", file);
 
-//         try {
-//             const response = await fetch('${process.env.REACT_APP_API_URL}/upload', {
-//                 method: 'POST',
-//                 body: formData,
-//             });
+        try {
+            const response = await fetch(`http://localhost:5000/grants/${grantId}/upload`, {
+                method: 'POST',
+                body: formData,
+            });
 
-//             const result = await response.json();
-//             if (response.ok) {
-//                 fetchFiles(); // Refresh file list
-//                 setMessage(result.message);
-//             } else {
-//                 setMessage(result.error || 'Upload failed');
-//             }
-//         } catch (error) {
-//             console.error('Error uploading file:', error);
-//             setMessage('Error uploading file');
-//         }
-//     };
+            const data = await response.json();
+            if (!response.ok) {
+                setMessage(data.error || 'Failed to upload file.');
+            } else {
+                setMessage(`File uploaded successfully for Grant ID: ${grantId}`);
+                fetchGrants(); // Refresh grants to show the new file link
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            setMessage('Failed to upload file.');
+        }
+    };
 
-//     return (
-//         <div>
-//             <h3>Uploaded Files</h3>
-//             <ul>
-//                 {files.map((filename, index) => (
-//                     <li key={index}>
-//                         <a href={`${process.env.REACT_APP_API_URL}/uploads/${filename}`} target="_blank" rel="noopener noreferrer">
-//                             {filename}
-//                         </a>
-//                     </li>
-//                 ))}
-//             </ul>
-//             <form onSubmit={handleSubmit}>
-//                 <input type="file" onChange={handleFileChange} />
-//                 <button type="submit">Upload</button>
-//             </form>
-//             <p>{message}</p>
-//         </div>
-//     );
-// }
+    return (
+        <div>
+            <h2>Current Grants</h2>
+            <p>{message}</p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Grant ID</th>
+                        <th>Grant Name</th>
+                        <th>Grantor</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Documents</th>
+                        <th>Upload Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {grants.map((grant) => (
+                        <tr key={grant.id}>
+                            <td>{grant.id}</td>
+                            <td>{grant.grantname}</td>
+                            <td>{grant.grantor}</td>
+                            <td>{grant.type}</td>
+                            <td>{grant.description}</td>
+                            <td>
 
-// export default Upload;
+                                <button onClick={async () => {
+                                    const files = await fetchGrantFiles(grant.id);
+                                    if (files.length > 0) {
+                                        files.forEach(file => window.open(file.file_url, '_blank'));
+                                    } else {
+                                        alert("No documents available for this grant.");
+                                    }
+                                }}>
+                                    View Files
+                                </button>
+                            </td>
+                            <td>
+                                <input
+                                    type="file"
+                                    onChange={(event) => handleFileUpload(event, grant.id)}
+                                />
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+export default GrantTable;

@@ -37,7 +37,7 @@ function AddPotentialGrant() {
             const result = await response.json();
             if (response.ok) {
                 setMessage('Potential grant added successfully');
-                setTimeout(() => navigate('/trackgrantresearch'), 2000);  // Redirect after 2 seconds
+                setTimeout(() => navigate('/trackgrantresearch'), 2000);  
             } else {
                 setMessage(result.error || 'Failed to add potential grant');
             }
