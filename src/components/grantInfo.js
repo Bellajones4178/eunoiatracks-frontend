@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { parse } from 'date-fns';
 
 function GrantInfo() {
     const [grants, setGrants] = useState([]);
@@ -24,46 +26,53 @@ function GrantInfo() {
         }
     };
 
-    // Update local state with selected status
-    const handleStatusChange = (grantId, newStatus) => {
-        setEditedStatuses(prevStatuses => ({
-            ...prevStatuses,
-            [grantId]: newStatus
-        }));
-    };
+// // Update local state with selected status
+// const handleStatusChange = (grantId, newStatus) => {
+//     setEditedStatuses(prevStatuses => ({
+//         ...prevStatuses,
+//         [grantId]: newStatus
+//     }));
+// };
 
-    // Save all changes to the backend
-    const saveChanges = async () => {
-        try {
-            const updateRequests = Object.keys(editedStatuses).map(async (grantId) => {
-                const newStatus = editedStatuses[grantId];
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/grants/${grantId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ status: newStatus })
-                });
-                if (!response.ok) {
-                    throw new Error(`Failed to update grant ${grantId}`);
-                }
-            });
+// // Save all changes to the backend for potential grants
+// const saveChanges = async () => {
+//     try {
+//         // Create an array of update requests for each grant ID in editedStatuses
+//         const updateRequests = Object.keys(editedStatuses).map(async (grantId) => {
+//             const newStatus = editedStatuses[grantId];
             
-            // Execute all update requests
-            await Promise.all(updateRequests);
+//             // Send a PUT request to the potential-grants endpoint with the new status
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants/${grantId}`, {
+//                 method: 'PUT',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify({ status: newStatus })
+//             });
             
-            // Update grants list with new statuses and clear edited statuses
-            setGrants(grants.map(grant => ({
-                ...grant,
-                status: editedStatuses[grant.id] || grant.status
-            })));
-            setEditedStatuses({});
-            setMessage('All changes saved successfully.');
-        } catch (error) {
-            console.error("Failed to save changes:", error);
-            setMessage('Failed to save changes.');
-        }
-    };
+//             // Throw an error if the response is not OK
+//             if (!response.ok) {
+//                 throw new Error(`Failed to update potential grant ${grantId}`);
+//             }
+//         });
+        
+//         // Execute all update requests concurrently
+//         await Promise.all(updateRequests);
+        
+//         // Update grants list with new statuses and clear edited statuses
+//         setGrants(grants.map(grant => ({
+//             ...grant,
+//             status: editedStatuses[grant.id] || grant.status
+//         })));
+        
+//         setEditedStatuses({});
+//         setMessage('All changes saved successfully.');
+//     } catch (error) {
+//         // Log error and update the message state with an error message
+//         console.error("Failed to save changes:", error);
+//         setMessage('Failed to save changes.');
+//     }
+// };
 
     // Handle deleting a grant
     const handleDeleteGrant = async (grantId) => {
@@ -90,15 +99,16 @@ function GrantInfo() {
             <ul>
                 {grants.map(grant => (
                     <li key={grant.id}>
-                        <strong>{grant.grantName}</strong> <br />
-                        <em>Grantor:</em> {grant.grantor} <br />
-                        <em>SubGrantor:</em> {grant.subGrantor} <br />
-                        <em>Type:</em> {grant.type} <br />
-                        <em>Start Date:</em> {grant.startDate} <br />
-                        <em>End Date:</em> {grant.endDate} <br />
-                        <em>Description:</em> {grant.description} <br />
+                        <strong>{grant.grantname}</strong> <br />
+                        <em>Grantor:</em> {grant.grantor || 'No grantor specified'} <br />
+                        <em>SubGrantor:</em> {grant.subgrantor || 'No subgrantor specified'} <br />
+                        <em>Type:</em> {grant.type || 'Type not specified'} <br />
+                        <em>Start Date:</em> {grant.startdate  || 'Not specified'} <br />
+                        <em>End Date:</em> {grant.enddate  || 'Not specified'} <br />
+                        <em>Description:</em> {grant.description || 'No description available'} <br />
+            
                         
-                        {/* Dropdown for selecting status */}
+                        {/* Dropdown for selecting status
                         <div>
                             <label><strong>Status:</strong></label>
                             <select
@@ -109,14 +119,14 @@ function GrantInfo() {
                                     <option key={status} value={status}>{status}</option>
                                 ))}
                             </select>
-                        </div>
+                        </div> */}
 
                         <Link to={`/edit-grant/${grant.id}`}><button>Edit</button></Link>
                         <button onClick={() => handleDeleteGrant(grant.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
-            <button onClick={saveChanges}>Save Changes</button>
+            {/* <button onClick={saveChanges}>Save Changes</button> */}
             <Link to="/add-grant"><button>Add New Grant</button></Link>
             <p>{message}</p>
         </div>

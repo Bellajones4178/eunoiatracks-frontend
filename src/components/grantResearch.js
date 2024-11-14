@@ -3,18 +3,20 @@ import { Link } from 'react-router-dom';
 
 function GrantResearch() {
     const [grants, setGrants] = useState([]);
-    const [editedStatuses, setEditedStatuses] = useState({});
     const [message, setMessage] = useState('');
 
     const statuses = ["LOI Needed", "Contacted", "Applied", "Rejected", "Approved"];
 
+    // Fetch all grants when the component mounts
     useEffect(() => {
         fetchGrants();
     }, []);
 
+    // Function to fetch all grants from the API
     const fetchGrants = async () => {
         try {
-            const response = await fetch('${process.env.REACT_APP_API_URL}/potential-grants');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants`);
+            if (!response.ok) throw new Error('Failed to fetch grants');
             const data = await response.json();
             setGrants(data);
         } catch (error) {
@@ -23,47 +25,7 @@ function GrantResearch() {
         }
     };
 
-    // Update local state with selected status
-    const handleStatusChange = (grantId, newStatus) => {
-        setEditedStatuses(prevStatuses => ({
-            ...prevStatuses,
-            [grantId]: newStatus
-        }));
-    };
-
-    // Save all changes to the backend
-    const saveChanges = async () => {
-        try {
-            const updateRequests = Object.keys(editedStatuses).map(async (grantId) => {
-                const newStatus = editedStatuses[grantId];
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants/${grantId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ status: newStatus })
-                });
-                if (!response.ok) {
-                    throw new Error(`Failed to update grant ${grantId}`);
-                }
-            });
-            
-            // Execute all update requests
-            await Promise.all(updateRequests);
-            
-            // Update grants list with new statuses and clear edited statuses
-            setGrants(grants.map(grant => ({
-                ...grant,
-                status: editedStatuses[grant.id] || grant.status
-            })));
-            setEditedStatuses({});
-            setMessage('All changes saved successfully.');
-        } catch (error) {
-            console.error("Failed to save changes:", error);
-            setMessage('Failed to save changes.');
-        }
-    };
-
+    // Function to delete a specific grant
     const handleDeleteGrant = async (grantId) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants/${grantId}`, {
@@ -71,7 +33,7 @@ function GrantResearch() {
             });
             if (response.ok) {
                 setMessage('Grant deleted successfully');
-                setGrants(grants.filter(grant => grant.id !== grantId));
+                setGrants(grants.filter(grant => grant.id !== grantId)); // Update state to remove deleted grant
             } else {
                 const errorData = await response.json();
                 setMessage(errorData.error || 'Failed to delete grant');
@@ -82,38 +44,29 @@ function GrantResearch() {
         }
     };
 
+    // Rendering of the grants list and management actions
     return (
         <div>
             <h2>Potential Grants</h2>
             <ul>
                 {grants.map(grant => (
                     <li key={grant.id}>
-                        <strong>{grant.grantName}</strong> <br />
+                        <strong>{grant.grantname}</strong> <br />
                         <em>Type:</em> {grant.type} <br />
                         <em>Category:</em> {grant.category} <br />
-                        <em>Due Date:</em> {grant.dueDate} <br />
-                        <em>Submitted Date:</em> {grant.submittedDate} <br />
-                        
-                        {/* Dropdown for selecting status */}
-                        <div>
-                            <label><strong>Status:</strong></label>
-                            <select
-                                value={editedStatuses[grant.id] || grant.status}
-                                onChange={(e) => handleStatusChange(grant.id, e.target.value)}
-                            >
-                                {statuses.map(status => (
-                                    <option key={status} value={status}>{status}</option>
-                                ))}
-                            </select>
-                        </div>
-                        
+                        <em>Due Date:</em> {grant.duedate} <br />
+                        <em>Submitted Date:</em> {grant.submitteddate} <br />
+                        <em>Status:</em> {grant.status} <br />
+
+                        <Link to={`/edit-potential-grant/${grant.id}`}>
+                            <button>Edit</button>
+                        </Link>                        
                         <button onClick={() => handleDeleteGrant(grant.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
-            <button onClick={saveChanges}>Save Changes</button>
             <Link to="/add-potential-grant"><button>Add New Grant</button></Link>
-            <p>{message}</p>
+            {message && <p>{message}</p>}
         </div>
     );
 }

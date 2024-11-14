@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ onLogin, message }) => {
+
+function Register({ onRegister, message }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await onLogin({ username, password });
-    if (success) {
-      navigate('/dashboard'); // Redirect to home page or any other page on success
+    if (typeof onRegister === 'function') { // Check if onRegister is a function
+      const success = await onRegister({ username, password, email });
+      if (success) {
+        navigate('/login'); // Redirect to login on successful registration
+      }
+    } else {
+      console.error("onRegister is not a function");
     }
   };
 
@@ -18,7 +24,7 @@ const Login = ({ onLogin, message }) => {
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <div className="border" style={{ display: 'inline-block', padding: '20px' }}>
         <div className="header">
-          <h1 className="word">Login</h1>
+          <h1 className="word">Register</h1>
         </div>
         <br /><br /><br />
         <h2 className="word">
@@ -43,17 +49,27 @@ const Login = ({ onLogin, message }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <br /><br /><br />
-            <input type="submit" className="btn" value="Sign In" />
             <br /><br />
+            <input
+              id="email"
+              name="email"
+              type="text"
+              placeholder="Enter Your Email ID"
+              className="textbox"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br /><br />
+            <input type="submit" className="btn" value="Sign Up" />
+            <br />
           </form>
         </h2>
         <p className="bottom">
-          Don't have an account? <Link className="bottom" to="/register">Sign Up here</Link>
+          Already have an account? <Link className="bottom" to="/login">Sign In here</Link>
         </p>
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default Register;

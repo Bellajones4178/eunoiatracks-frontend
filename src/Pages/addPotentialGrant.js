@@ -4,47 +4,46 @@ import { useNavigate } from 'react-router-dom';
 
 function AddPotentialGrant() {
     const [newGrant, setNewGrant] = useState({
-        grantName: '',
-        type: '',
-        category: '',
-        dueDate: '',
-        submittedDate: '',
-        status: 'LOI Needed',
+        grantName: "",
+        type: "",
+        category: "",
+        dueDate: "",
+        submittedDate: "",
+        status: "LOI Needed"
     });
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    // Use environment variable for API URL, defaulting to localhost for development
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-
+    // Handle input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewGrant({ ...newGrant, [name]: value });
     };
 
+    // Function to add the potential grant
     const handleAddGrant = async () => {
         const uniqueId = uuidv4(); // Generate a unique ID
-        const grantWithId = { ...newGrant, id: uniqueId, grantID: uniqueId, currentGrant: false };
+        const grantWithId = { ...newGrant, id: uniqueId, grantID: uniqueId, currentGrant: false }; // Mark as potential grant
 
         try {
-            const response = await fetch(`${API_URL}/potential-grants`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(grantWithId)
             });
-            const result = await response.json();
 
+            const result = await response.json();
             if (response.ok) {
-                setMessage('Grant added successfully');
-                navigate('/trackgrantresearch');  // Redirect to the grants list
+                setMessage('Potential grant added successfully');
+                setTimeout(() => navigate('/trackgrantresearch'), 2000);  // Redirect after 2 seconds
             } else {
-                setMessage(result.error || 'Failed to add grant');
+                setMessage(result.error || 'Failed to add potential grant');
             }
         } catch (error) {
-            console.error("Error adding grant:", error);
-            setMessage("Failed to add grant.");
+            console.error("Error adding potential grant:", error);
+            setMessage("Failed to add potential grant.");
         }
     };
 
@@ -84,6 +83,7 @@ function AddPotentialGrant() {
                     value={newGrant.dueDate}
                     onChange={handleInputChange}
                     placeholder="Due Date"
+                    required
                 />
                 <input
                     type="date"
@@ -91,10 +91,11 @@ function AddPotentialGrant() {
                     value={newGrant.submittedDate}
                     onChange={handleInputChange}
                     placeholder="Submitted Date"
+                    required
                 />
-                <button type="submit">Add Grant</button>
+                <button type="submit">Add Potential Grant</button>
             </form>
-            <p>{message}</p>
+            {message && <p>{message}</p>}
         </div>
     );
 }

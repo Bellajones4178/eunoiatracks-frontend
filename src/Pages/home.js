@@ -9,7 +9,7 @@ function Home()
                 <h1>Eunoia</h1>
                 <h2>Welcome to Eunoia!</h2>
                 <Link to="/login"><button>Log in</button></Link>
-                <Link to="/signup"><button>Sign up</button></Link>
+                <Link to="/register"><button>Register</button></Link>
                 <h3>Streamline Your Grants.</h3>
                 <h4>Enter your grant details.</h4>
                 <h4>Upload your documents.</h4>
