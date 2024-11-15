@@ -1,5 +1,22 @@
-nav a {
-    margin-right: 20px; 
-    text-decoration: none;
-    color: #333;
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* .landing-background {
+    background-image: url('../background.png');
+
+} */
+
+.landing-background {
+    background-image: url('../background.png'); /* Adjust path as needed */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
 }

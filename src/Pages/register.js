@@ -21,8 +21,8 @@ function Register({ onRegister, message }) {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <div className="border" style={{ display: 'inline-block', padding: '20px' }}>
+    <div className="landing-background">
+    <div style={{ textAlign: 'center'}}>
         <div className="header">
           <h1 className="word">Register</h1>
         </div>

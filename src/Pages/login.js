@@ -10,18 +10,16 @@ const Login = ({ onLogin, message }) => {
     e.preventDefault();
     const success = await onLogin({ username, password });
     if (success) {
-      navigate('/dashboard'); // Redirect to home page or any other page on success
+      navigate('/dashboard'); // Redirect to the dashboard or another page on success
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <div className="border" style={{ display: 'inline-block', padding: '20px' }}>
-        <div className="header">
-          <h1 className="word">Login</h1>
-        </div>
-        <br /><br /><br />
-        <h2 className="word">
+    <div className="landing-background">
+        <div className="border">
+          <div className="header">
+            <h1>Login</h1>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="msg">{message}</div>
             <input
@@ -33,7 +31,6 @@ const Login = ({ onLogin, message }) => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <br /><br />
             <input
               id="password"
               name="password"
@@ -43,16 +40,13 @@ const Login = ({ onLogin, message }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <br /><br /><br />
             <input type="submit" className="btn" value="Sign In" />
-            <br /><br />
           </form>
-        </h2>
-        <p className="bottom">
-          Don't have an account? <Link className="bottom" to="/register">Sign Up here</Link>
-        </p>
+          <p className="bottom">
+            Don't have an account? <Link to="/register">Sign Up here</Link>
+          </p>
+        </div>
       </div>
-    </div>
   );
 };
 
