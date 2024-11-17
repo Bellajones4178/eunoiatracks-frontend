@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GrantStatusChart from '../components/grantStatusChart';
+import Layout from '../components/layout';
 
 function GrantStatusReport() {
     const [statusData, setStatusData] = useState({});
@@ -17,10 +18,15 @@ function GrantStatusReport() {
     }, []);
 
     return (
+        <Layout>
         <div>
-            <h2>Grant Status Report</h2>
+            <h2 className='center'>Statistics</h2>
+            <br />
+            <h4 className='description'>
+            View up-to-date statistics on your grant processes for a comprehensive overview of your progress.</h4>
             <GrantStatusChart statusData={statusData} />
         </div>
+        </Layout>
     );
 }
 

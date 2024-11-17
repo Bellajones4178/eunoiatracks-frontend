@@ -5,6 +5,7 @@ function Home()
 {
     return (
         <div className="landing-background">
+        <div className="form-tables">
         <div>
             <main>
                 <h1>Eunoia</h1>
@@ -17,6 +18,7 @@ function Home()
                 <h4>Track your progress.</h4>
                 <h4>Simplify your grant.</h4>
             </main>
+        </div>
         </div>
         </div>
             

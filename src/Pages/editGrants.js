@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../style.css';
 
 function EditGrant() {
     const { grantId } = useParams(); // Get the grant ID from the URL
@@ -66,89 +67,93 @@ function EditGrant() {
     };
 
     return (
-        <div>
-            <h2>Edit Grant</h2>
-            <form onSubmit={handleSaveChanges}>
-                <label>
-                    Grant Name:
-                    <input
-                        type="text"
-                        name="grantname"
-                        value={grant.grantname}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Grantor:
-                    <input
-                        type="text"
-                        name="grantor"
-                        value={grant.grantor}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                    SubGrantor:
-                    <input
-                        type="text"
-                        name="subgrantor"
-                        value={grant.subgrantor}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                    Type:
-                    <input
-                        type="text"
-                        name="type"
-                        value={grant.type}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                    Start Date:
-                    <input
-                        type="date"
-                        name="startdate"
-                        value={grant.startdate}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                    End Date:
-                    <input
-                        type="date"
-                        name="enddate"
-                        value={grant.enddate}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                    Description:
-                    <textarea
-                        name="description"
-                        value={grant.description}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                    Status:
-                    <select
-                        name="status"
-                        value={grant.status}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Select Status</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
-                        <option value="In Progress">In Progress</option>
-                    </select>
-                </label>
-                <button type="submit">Save Changes</button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className="form-page">
+            <div className="form-tables">
+                <h2>Edit Grant</h2>
+                <form onSubmit={handleSaveChanges}>
+                    <label>
+                        Grant Name:
+                        <input
+                            type="text"
+                            name="grantname"
+                            value={grant.grantname}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </label>
+                    <label>
+                        Grantor:
+                        <input
+                            type="text"
+                            name="grantor"
+                            value={grant.grantor}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        SubGrantor:
+                        <input
+                            type="text"
+                            name="subgrantor"
+                            value={grant.subgrantor}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Type:
+                        <input
+                            type="text"
+                            name="type"
+                            value={grant.type}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Start Date:
+                        <input
+                            type="date"
+                            name="startdate"
+                            value={grant.startdate}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        End Date:
+                        <input
+                            type="date"
+                            name="enddate"
+                            value={grant.enddate}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Description:
+                        <textarea
+                            name="description"
+                            value={grant.description}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Status:
+                        <select
+                            name="status"
+                            value={grant.status}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Select Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="In Progress">In Progress</option>
+                        </select>
+                    </label>
+                    <button type="submit">Save Changes</button>
+                    <br />
+                    <button className='goback-btn' onClick={() => navigate('/grantdetails')}>Go Back</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
         </div>
     );
 }

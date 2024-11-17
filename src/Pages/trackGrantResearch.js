@@ -1,12 +1,14 @@
 import React from 'react';
 import GrantResearch from '../components/grantResearch';
+import Layout from '../components/layout';
 
 function TrackGrantResearch() {
   return (
+    <Layout>
     <div>
-      <h1>Track Grant Research</h1>
       <GrantResearch />
     </div>
+    </Layout>
   );
 }
 

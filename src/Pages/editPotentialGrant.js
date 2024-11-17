@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import '../style.css';
 
 export const EditPotentialGrant = ({ grantToEdit }) => {
     const { grantId } = useParams();
@@ -70,7 +71,8 @@ export const EditPotentialGrant = ({ grantToEdit }) => {
     }
 
     return (
-        <div>
+        <div className='form-page'>
+            <div className='form-tables'>
             <h2>Edit Potential Grant</h2>
             <form onSubmit={handleSaveChanges}>
                 <label>
@@ -102,8 +104,11 @@ export const EditPotentialGrant = ({ grantToEdit }) => {
                     <input type="text" name="status" value={grant.status} onChange={handleInputChange} />
                 </label>
                 <button type="submit">Save Changes</button>
+                <br />
+                <button className='goback-btn' onClick={() => navigate('/trackgrantresearch')}>Go Back</button>
             </form>
             {message && <p>{message}</p>}
+            </div>
         </div>
     );
 };

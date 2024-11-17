@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 function GrantStatusChart({ statusData }) {
     if (!statusData || Object.keys(statusData).length === 0) {
@@ -14,12 +14,35 @@ function GrantStatusChart({ statusData }) {
         datasets: [
             {
                 data: Object.values(statusData),
-                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                backgroundColor: [
+                    '#54C2CC', // Viking
+                    '#20525C', // Astronaut Blue
+                    '#DFE667', // Mindaro
+                    '#7EA310', // Christi
+                    '#213502', // Dark Green
+                ],
             },
         ],
     };
 
-    return <Pie data={data} />;
+    const options = {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Potential Grant Status',
+                font: {
+                    size: 18,
+                    fontFamily: 'Roboto',
+                },
+            },
+        },
+    };
+
+    return (
+        <div className="chart-container">
+            <Pie data={data} options={options} />
+        </div>
+    );
 }
 
 export default GrantStatusChart;

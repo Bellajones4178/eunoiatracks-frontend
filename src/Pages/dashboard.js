@@ -1,38 +1,28 @@
 import React from 'react';
-import Navigation from '../components/navigation';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import Layout from '../components/layout';
+import GrantStatusChart from '../components/grantStatusChart';
 
 function Dashboard() {
   return (
-    <main>
-
+    <Layout>
       <div className="dashboard-container">
-        <h2>Hello, *Name*! Welcome to your Dashboard.</h2>
-
         <section id="dashboard-section" className="dashboard">
-          <h2>Dashboard Overview</h2>
-
+          <h2 className='center'>Dashboard</h2>
+          <br />
+          <h4 className='description'>Welcome to your Dashboard. Here you can choose to add widgets specified to you that will aid in your grant search processes. </h4>
           <div className="dashboard-widgets">
             <div className="widget">
-              <h3>Widget 1</h3>
+              <h3>Status</h3>
             </div>
-
+            <br />
             <div className="widget">
-              <h3>Widget 2</h3>
-              <p>More metrics or interactive content.</p>
-            </div>
-
-            <div className="widget">
-              <h3>Widget 3</h3>
-              <p>Other content</p>
+              <h3>Amount Paid</h3>
             </div>
           </div>
         </section>
       </div>
-    </main>
+    </Layout>
   );
 }
-
 
 export default Dashboard;

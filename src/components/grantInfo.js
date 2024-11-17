@@ -46,30 +46,38 @@ function GrantInfo() {
 
     return (
         <div>
-            <h2>All Grants</h2>
-            <ul>
-                {grants.map(grant => (
-                    <li key={grant.id}>
-                        <strong>{grant.grantname}</strong> <br />
-                        <em>Grantor:</em> {grant.grantor || 'No grantor specified'} <br />
-                        <em>SubGrantor:</em> {grant.subgrantor || 'No subgrantor specified'} <br />
-                        <em>Type:</em> {grant.type || 'Type not specified'} <br />
-                        <em>Start Date:</em> {grant.startdate  || 'Not specified'} <br />
-                        <em>End Date:</em> {grant.enddate  || 'Not specified'} <br />
-                        <em>Description:</em> {grant.description || 'No description available'} <br />
-            
-                        
-
-                        <Link to={`/edit-grant/${grant.id}`}><button>Edit</button></Link>
-                        <button onClick={() => handleDeleteGrant(grant.id)}>Delete</button>
-                    </li>
-                ))}
+          <div className="grants-container">
+            <ul className="grants-list">
+              {grants.map(grant => (
+                <li key={grant.id} className="grant-item">
+                  <div className="grant-details">
+                    <strong className="grant-name">{grant.grantname}</strong>
+                    <div>
+                      <span className="grant-field"><em>Grantor:</em> {grant.grantor || 'No grantor specified'}</span>
+                      <span className="grant-field"><em>SubGrantor:</em> {grant.subgrantor || 'No subgrantor specified'}</span>
+                      <span className="grant-field"><em>Type:</em> {grant.type || 'Type not specified'}</span>
+                      <span className="grant-field"><em>Start Date:</em> {grant.startdate || 'Not specified'}</span>
+                      <span className="grant-field"><em>End Date:</em> {grant.enddate || 'Not specified'}</span>
+                      <span className="grant-field"><em>Description:</em> {grant.description || 'No description available'}</span>
+                    </div>
+                  </div>
+                  <div className="grant-actions">
+                    <Link to={`/edit-grant/${grant.id}`}>
+                      <button className="edit-btn">Edit</button>
+                    </Link>
+                    <button className="delete-btn" onClick={() => handleDeleteGrant(grant.id)}>Delete</button>
+                  </div>
+                </li>
+              ))}
             </ul>
-
-            <Link to="/add-grant"><button>Add New Grant</button></Link>
+      
+            <Link to="/add-grant">
+              <button className="add-btn">Add New Grant</button>
+            </Link>
             <p>{message}</p>
+          </div>
         </div>
-    );
+      );
 }
 
 export default GrantInfo;

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import '../style.css';
 
 function AddPotentialGrant() {
     const [newGrant, setNewGrant] = useState({
-        grantName: "",
+        grantname: "",
         type: "",
         category: "",
-        dueDate: "",
-        submittedDate: "",
+        duedate: "",
+        submitteddate: "",
         status: "LOI Needed"
     });
     const [message, setMessage] = useState('');
@@ -36,7 +37,7 @@ function AddPotentialGrant() {
 
             const result = await response.json();
             if (response.ok) {
-                setMessage('Potential grant added successfully');
+                setMessage('Potential grant added successfully.');
                 setTimeout(() => navigate('/trackgrantresearch'), 2000);  
             } else {
                 setMessage(result.error || 'Failed to add potential grant');
@@ -48,7 +49,8 @@ function AddPotentialGrant() {
     };
 
     return (
-        <div>
+        <div className='form-page'>
+            <div className='form-tables'>
             <h2>Add Potential Grant</h2>
             <form onSubmit={(e) => {
                 e.preventDefault();
@@ -56,8 +58,8 @@ function AddPotentialGrant() {
             }}>
                 <input
                     type="text"
-                    name="grantName"
-                    value={newGrant.grantName}
+                    name="grantname"
+                    value={newGrant.grantname}
                     onChange={handleInputChange}
                     placeholder="Grant Name"
                     required
@@ -79,23 +81,26 @@ function AddPotentialGrant() {
                 />
                 <input
                     type="date"
-                    name="dueDate"
-                    value={newGrant.dueDate}
+                    name="duedate"
+                    value={newGrant.duedate}
                     onChange={handleInputChange}
                     placeholder="Due Date"
                     required
                 />
                 <input
                     type="date"
-                    name="submittedDate"
-                    value={newGrant.submittedDate}
+                    name="submitteddate"
+                    value={newGrant.submitteddate}
                     onChange={handleInputChange}
                     placeholder="Submitted Date"
                     required
                 />
                 <button type="submit">Add Potential Grant</button>
+                <br></br>
+                <button className='goback-btn' onClick={() => navigate('/trackgrantresearch')}>Go Back</button>
             </form>
             {message && <p>{message}</p>}
+            </div>
         </div>
     );
 }

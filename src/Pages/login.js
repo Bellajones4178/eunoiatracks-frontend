@@ -16,8 +16,8 @@ const Login = ({ onLogin, message }) => {
 
   return (
     <div className="landing-background">
+      <div className="form-tables">
         <div className="border">
-          <div className="header">
             <h1>Login</h1>
           </div>
           <form onSubmit={handleSubmit}>

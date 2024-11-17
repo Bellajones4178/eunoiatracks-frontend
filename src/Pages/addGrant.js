@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import '../style.css';
 
 function AddGrant() {
     const [newGrant, setNewGrant] = useState({
-        grantName: "",
+        grantname: "",
         grantor: "",
-        subGrantor: "",
+        subgrantor: "",
         type: "",
-        startDate: "",
-        endDate: "",
+        startdate: "",
+        enddate: "",
         description: "",
         status: "To Do"
     });
@@ -50,69 +51,75 @@ function AddGrant() {
     };
 
     return (
-        <div>
-            <h2>Add New Grant</h2>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                handleAddGrant();
-            }}>
-                <input
-                    type="text"
-                    name="grantName"
-                    value={newGrant.grantName}
-                    onChange={handleInputChange}
-                    placeholder="Grant Name"
-                    required
-                />
-                <input
-                    type="text"
-                    name="grantor"
-                    value={newGrant.grantor}
-                    onChange={handleInputChange}
-                    placeholder="Grantor"
-                    required
-                />
-                <input
-                    type="text"
-                    name="subGrantor"
-                    value={newGrant.subGrantor}
-                    onChange={handleInputChange}
-                    placeholder="SubGrantor"
-                />
-                <input
-                    type="text"
-                    name="type"
-                    value={newGrant.type}
-                    onChange={handleInputChange}
-                    placeholder="Type"
-                />
-                <input
-                    type="date"
-                    name="startDate"
-                    value={newGrant.startDate}
-                    onChange={handleInputChange}
-                    placeholder="Start Date"
-                    required
-                />
-                <input
-                    type="date"
-                    name="endDate"
-                    value={newGrant.endDate}
-                    onChange={handleInputChange}
-                    placeholder="End Date"
-                    required
-                />
-                <textarea
-                    name="description"
-                    value={newGrant.description}
-                    onChange={handleInputChange}
-                    placeholder="Description"
-                    required
-                ></textarea>
-                <button type="submit">Add Grant</button>
-            </form>
-            {message && <p>{message}</p>}
+    <div className="form-page">
+        <div className="form-tables">
+            <div>
+                <h2>Add New Grant</h2>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    handleAddGrant();
+                }}>
+                    <input
+                        type="text"
+                        name="grantname"
+                        value={newGrant.grantname}
+                        onChange={handleInputChange}
+                        placeholder="Grant Name"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="grantor"
+                        value={newGrant.grantor}
+                        onChange={handleInputChange}
+                        placeholder="Grantor"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="subgrantor"
+                        value={newGrant.subgrantor}
+                        onChange={handleInputChange}
+                        placeholder="SubGrantor"
+                    />
+                    <input
+                        type="text"
+                        name="type"
+                        value={newGrant.type}
+                        onChange={handleInputChange}
+                        placeholder="Type"
+                    />
+                    <input
+                        type="date"
+                        name="startdate"
+                        value={newGrant.startdate}
+                        onChange={handleInputChange}
+                        placeholder="Start Date"
+                        required
+                    />
+                    <input
+                        type="date"
+                        name="enddate"
+                        value={newGrant.enddate}
+                        onChange={handleInputChange}
+                        placeholder="End Date"
+                        required
+                    />
+                    <textarea
+                        name="description"
+                        value={newGrant.description}
+                        onChange={handleInputChange}
+                        placeholder="Description"
+                        required
+                    ></textarea>
+                    <button type="submit">Add Grant</button>
+                    <br></br>
+                    <button className='goback-btn' type="button" onClick={() => navigate('/grantdetails')}>Go Back</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
         </div>
+    </div>
     );
 }
 

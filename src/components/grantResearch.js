@@ -46,28 +46,40 @@ function GrantResearch() {
 
     return (
         <div>
-            <h2>Potential Grants</h2>
-            <ul>
-                {grants.map(grant => (
-                    <li key={grant.id}>
-                        <strong>{grant.grantname}</strong> <br />
-                        <em>Type:</em> {grant.type} <br />
-                        <em>Category:</em> {grant.category} <br />
-                        <em>Due Date:</em> {grant.duedate} <br />
-                        <em>Submitted Date:</em> {grant.submitteddate} <br />
-                        <em>Status:</em> {grant.status} <br />
-
-                        <Link to={`/edit-potential-grant/${grant.id}`}>
-                            <button>Edit</button>
-                        </Link>                        
-                        <button onClick={() => handleDeleteGrant(grant.id)}>Delete</button>
-                    </li>
-                ))}
+          <h2 className='center'>Potential Grants</h2>
+          <br />
+          <h4 className='description'>Add potential grants that your organization may be eligible for, with the ability to add, edit, and delete entries, as well as easily filter them to streamline your selection process.</h4>
+          <div className="grants-container">
+            <ul className="grants-list">
+              {grants.map(grant => (
+                <li key={grant.id} className="grant-item">
+                  <div className="grant-details">
+                    <strong className="grant-name">{grant.grantname}</strong>
+                    <div>
+                      <span className="grant-field"><em>Type:</em> {grant.type}</span>
+                      <span className="grant-field"><em>Category:</em> {grant.category}</span>
+                      <span className="grant-field"><em>Due Date:</em> {grant.duedate}</span>
+                      <span className="grant-field"><em>Submitted Date:</em> {grant.submitteddate}</span>
+                      <span className="grant-field"><em>Status:</em> {grant.status}</span>
+                    </div>
+                  </div>
+                  <div className="grant-actions">
+                    <Link to={`/edit-potential-grant/${grant.id}`}>
+                      <button className="edit-btn">Edit</button>
+                    </Link>
+                    <button className="delete-btn" onClick={() => handleDeleteGrant(grant.id)}>Delete</button>
+                  </div>
+                </li>
+              ))}
             </ul>
-            <Link to="/add-potential-grant"><button>Add New Grant</button></Link>
-            {message && <p>{message}</p>}
+            <Link to="/add-potential-grant">
+              <button className="add-btn">Add New Grant</button>
+            </Link>
+            {message && <p className="message">{message}</p>}
+          </div>
         </div>
-    );
+      );
+      
 }
 
 export default GrantResearch;

@@ -22,8 +22,8 @@ function Register({ onRegister, message }) {
 
   return (
     <div className="landing-background">
+    <div className="form-tables">
     <div style={{ textAlign: 'center'}}>
-        <div className="header">
           <h1 className="word">Register</h1>
         </div>
         <br /><br /><br />
@@ -39,7 +39,6 @@ function Register({ onRegister, message }) {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <br /><br />
             <input
               id="password"
               name="password"
@@ -49,7 +48,6 @@ function Register({ onRegister, message }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <br /><br />
             <input
               id="email"
               name="email"
@@ -59,7 +57,6 @@ function Register({ onRegister, message }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <br /><br />
             <input type="submit" className="btn" value="Sign Up" />
             <br />
           </form>
@@ -68,7 +65,7 @@ function Register({ onRegister, message }) {
           Already have an account? <Link className="bottom" to="/login">Sign In here</Link>
         </p>
       </div>
-    </div>
+      </div>
   );
 }
 

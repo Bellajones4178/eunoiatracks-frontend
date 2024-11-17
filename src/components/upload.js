@@ -57,54 +57,60 @@ function GrantTable() {
     };
 
     return (
-        <div>
-            <h2>Current Grants</h2>
-            <p>{message}</p>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Grant ID</th>
-                        <th>Grant Name</th>
-                        <th>Grantor</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Documents</th>
-                        <th>Upload Document</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {grants.map((grant) => (
-                        <tr key={grant.id}>
-                            <td>{grant.id}</td>
-                            <td>{grant.grantname}</td>
-                            <td>{grant.grantor}</td>
-                            <td>{grant.type}</td>
-                            <td>{grant.description}</td>
-                            <td>
-
-                                <button onClick={async () => {
-                                    const files = await fetchGrantFiles(grant.id);
-                                    if (files.length > 0) {
-                                        files.forEach(file => window.open(file.file_url, '_blank'));
-                                    } else {
-                                        alert("No documents available for this grant.");
-                                    }
-                                }}>
-                                    View Files
-                                </button>
-                            </td>
-                            <td>
-                                <input
-                                    type="file"
-                                    onChange={(event) => handleFileUpload(event, grant.id)}
-                                />
-                            </td>
+        <div className="page-container">
+            <div className="grant-table-container">
+                <h2>Current Grants</h2>
+                <p className="message">{message}</p>
+                <table className="grant-table">
+                    <thead>
+                        <tr>
+                            <th>Grant ID</th>
+                            <th>Grant Name</th>
+                            <th>Grantor</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Documents</th>
+                            <th>Upload Document</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {grants.map((grant) => (
+                            <tr key={grant.id}>
+                                <td>{grant.id}</td>
+                                <td>{grant.grantname}</td>
+                                <td>{grant.grantor}</td>
+                                <td>{grant.type}</td>
+                                <td>{grant.description}</td>
+                                <td>
+                                    <button
+                                        className="view-files-btn"
+                                        onClick={async () => {
+                                            const files = await fetchGrantFiles(grant.id);
+                                            if (files.length > 0) {
+                                                files.forEach(file => window.open(file.file_url, '_blank'));
+                                            } else {
+                                                alert("No documents available for this grant.");
+                                            }
+                                        }}
+                                    >
+                                        View Files
+                                    </button>
+                                </td>
+                                <td>
+                                    <input
+                                        type="file"
+                                        className="upload-input"
+                                        onChange={(event) => handleFileUpload(event, grant.id)}
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
+    
 }
 
 export default GrantTable;

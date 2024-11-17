@@ -23,14 +23,6 @@ function App() {
 }
 
 function Content() {
-  const location = useLocation();
-  const showNavigation = [
-    "/dashboard", 
-    "/grantdetails", 
-    "/uploaddocument", 
-    "/trackgrantresearch",
-    "/statistics",
-  ].includes(location.pathname);
 
   // Define the login function to be passed to Login component
   const handleLogin = async ({ username, password }) => {
@@ -87,7 +79,6 @@ function Content() {
 
   return (
     <main>
-      {showNavigation && <Navigation />}
       <section>
         <Routes>
           <Route path="/" element={<Home />} />
