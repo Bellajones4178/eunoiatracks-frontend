@@ -18,7 +18,9 @@ const Login = ({ onLogin, message }) => {
     <div className="landing-background">
       <div className="form-tables">
         <div className="border">
-            <h1>Login</h1>
+        <div style={{ textAlign: 'center'}}>
+            <h1 className='center'>Login</h1>
+            <br></br>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="msg">{message}</div>
@@ -46,6 +48,7 @@ const Login = ({ onLogin, message }) => {
             Don't have an account? <Link to="/register">Sign Up here</Link>
           </p>
         </div>
+      </div>
       </div>
   );
 };

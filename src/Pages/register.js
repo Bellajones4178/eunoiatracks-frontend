@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-
 function Register({ onRegister, message }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,24 +9,24 @@ function Register({ onRegister, message }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (typeof onRegister === 'function') { // Check if onRegister is a function
+    if (typeof onRegister === 'function') {
       const success = await onRegister({ username, password, email });
       if (success) {
         navigate('/login'); // Redirect to login on successful registration
       }
     } else {
-      console.error("onRegister is not a function");
+      console.error('onRegister is not a function');
     }
   };
 
   return (
     <div className="landing-background">
-    <div className="form-tables">
-    <div style={{ textAlign: 'center'}}>
-          <h1 className="word">Register</h1>
-        </div>
-        <br /><br /><br />
-        <h2 className="word">
+      <div className="form-tables">
+        <div className="border">
+          <div style={{ textAlign: 'center' }}>
+            <h1 className="center">Register</h1>
+            <br />
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="msg">{message}</div>
             <input
@@ -51,21 +50,20 @@ function Register({ onRegister, message }) {
             <input
               id="email"
               name="email"
-              type="text"
+              type="email"
               placeholder="Enter Your Email ID"
               className="textbox"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input type="submit" className="btn" value="Sign Up" />
-            <br />
           </form>
-        </h2>
-        <p className="bottom">
-          Already have an account? <Link className="bottom" to="/login">Sign In here</Link>
-        </p>
+          <p className="bottom">
+            Already have an account? <Link to="/login">Sign In here</Link>
+          </p>
+        </div>
       </div>
-      </div>
+    </div>
   );
 }
 
