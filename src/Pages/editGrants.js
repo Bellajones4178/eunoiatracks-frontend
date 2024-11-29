@@ -3,6 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../style.css';
 
 function EditGrant() {
+    useEffect(() => {
+        document.title = "Eunoia - Edit Grant"; 
+      }, []);
+
     const { grantId } = useParams(); // Get the grant ID from the URL
     const navigate = useNavigate();
 

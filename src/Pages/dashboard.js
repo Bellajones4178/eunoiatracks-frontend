@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Layout from '../components/layout';
 import GrantStatusChart from '../components/grantStatusChart';
 
 function Dashboard() {
+  useEffect(() => {
+    document.title = "Eunoia - Dashboard"; 
+  }, []);
   return (
     <Layout>
       <div className="dashboard-container">

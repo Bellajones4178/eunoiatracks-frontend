@@ -17,6 +17,14 @@
     font-family: "Roboto", sans-serif;
 }
 
+.center-uploaded-files {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
 /* for titles on pages */
 .center {
   text-align: center;
@@ -33,6 +41,7 @@
   text-align: center;
   font-family: "Roboto", sans-serif;
   font-size: 15pt;
+  font-weight: 100;
 }
 
 
@@ -305,13 +314,26 @@
     font-weight: bold;
   }
   
+  .reglog-button {
+    background-color: var(--clickgreen);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+
+  .reglog-button:hover {
+    background-color: var(--hovergreen);
+  }
   
 
 
   /* Form container styling */
 .page-container {
     display: flex;
-    justify-content: center; 
+    justify-content:center ; 
     align-items: flex-start; 
     min-height: 100vh; 
     background-color: #f9f9f9; 
@@ -321,7 +343,7 @@
 /* Grant table container */
 .grant-table-container {
     width: 100%;
-    max-width: 1200px; 
+    max-width: 100%; 
     padding: 20px;
     background-color: #ffffff; 
     border-radius: 8px;
@@ -352,6 +374,17 @@
 
 .grant-table tbody tr:hover {
     background-color: #f1f1f1;
+}
+
+.upload-table-container {
+  width: 100%; 
+  max-width: 100%; 
+  padding: 20px; 
+  background-color: #ffffff; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  overflow-x: auto; 
+  box-sizing: border-box; 
 }
 
 /* Button styling */

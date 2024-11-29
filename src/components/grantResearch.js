@@ -25,28 +25,32 @@ function GrantResearch() {
         }
     };
 
-    // Delete Specific Grant
     const handleDeleteGrant = async (grantId) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants/${grantId}`, {
-                method: 'DELETE'
-            });
-            if (response.ok) {
-                setMessage('Grant deleted successfully');
-                setGrants(grants.filter(grant => grant.id !== grantId)); // Update state to remove deleted grant
-            } else {
-                const errorData = await response.json();
-                setMessage(errorData.error || 'Failed to delete grant');
-            }
-        } catch (error) {
-            console.error("Error deleting grant:", error);
-            setMessage("Failed to delete grant.");
+      const confirmDelete = window.confirm("Are you sure you want to delete this grant?");
+      if (!confirmDelete) {
+        return; // Exit if user cancels
+      }
+  
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/potential-grants/${grantId}`, {
+          method: 'DELETE'
+        });
+        if (response.ok) {
+          setMessage('Grant deleted successfully');
+          setGrants(grants.filter(grant => grant.id !== grantId)); // Update state to remove deleted grant
+        } else {
+          const errorData = await response.json();
+          setMessage(errorData.error || 'Failed to delete grant');
         }
+      } catch (error) {
+        console.error("Error deleting grant:", error);
+        setMessage("Failed to delete grant.");
+      }
     };
-
+    
     return (
         <div>
-          <h2 className='center'>Potential Grants</h2>
+          <h2 className='center'>Grant Research</h2>
           <br />
           <h4 className='description'>Add potential grants that your organization may be eligible for, with the ability to add, edit, and delete entries, as well as easily filter them to streamline your selection process.</h4>
           <div className="grants-container">

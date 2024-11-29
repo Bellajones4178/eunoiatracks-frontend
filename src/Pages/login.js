@@ -42,7 +42,7 @@ const Login = ({ onLogin, message }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <input type="submit" className="btn" value="Sign In" />
+            <input type="submit" className="reglog-button" value="Sign In" />
           </form>
           <p className="bottom">
             Don't have an account? <Link to="/register">Sign Up here</Link>

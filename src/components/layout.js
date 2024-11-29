@@ -3,6 +3,7 @@ import Navigation from './navigation';
 import Header from './header';
 import '../style.css'; 
 import logo from '../logo.png';
+import { Link } from 'react-router-dom';
 
 function Layout({ children }) {
   const [searchQuery, setSearchQuery] = useState(''); // State to store search input
@@ -20,10 +21,10 @@ function Layout({ children }) {
       <div style={{ display: 'flex' }}>
         {/* Sidebar Navigation */}
         <div className="side-nav">
-          <a href="#" className="logo">
+          <Link to="/dashboard" className="logo"> {/* Replace a with Link */}
             <img src={logo} alt="logo" />
             <h1 className="roboto-bold">Eunoia</h1>
-          </a>
+          </Link>
           <Navigation />
         </div>
 

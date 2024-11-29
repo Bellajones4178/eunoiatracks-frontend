@@ -3,6 +3,9 @@ import GrantStatusChart from '../components/grantStatusChart';
 import Layout from '../components/layout';
 
 function GrantStatusReport() {
+    useEffect(() => {
+        document.title = "Eunoia - Statistics"; 
+      }, []);
     const [statusData, setStatusData] = useState({});
 
     useEffect(() => {

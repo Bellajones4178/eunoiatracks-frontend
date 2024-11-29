@@ -56,7 +56,7 @@ function Register({ onRegister, message }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input type="submit" className="btn" value="Sign Up" />
+            <input type="submit" className="reglog-button" value="Sign Up" />
           </form>
           <p className="bottom">
             Already have an account? <Link to="/login">Sign In here</Link>

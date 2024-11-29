@@ -57,8 +57,8 @@ function GrantTable() {
     };
 
     return (
-        <div className="page-container">
-            <div className="grant-table-container">
+        <div className="center-uploaded-files">
+            <div className="upload-table-container">
                 <h2>Current Grants</h2>
                 <p className="message">{message}</p>
                 <table className="grant-table">

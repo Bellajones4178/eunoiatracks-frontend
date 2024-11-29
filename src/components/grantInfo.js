@@ -25,24 +25,29 @@ function GrantInfo() {
         }
     };
 
-
     const handleDeleteGrant = async (grantId) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/grants/${grantId}`, {
-                method: 'DELETE'
-            });
-            if (response.ok) {
-                setMessage('Grant deleted successfully');
-                setGrants(grants.filter(grant => grant.id !== grantId));
-            } else {
-                const errorData = await response.json();
-                setMessage(errorData.error || 'Failed to delete grant');
-            }
-        } catch (error) {
-            console.error("Error deleting grant:", error);
-            setMessage("Failed to delete grant.");
-        }
-    };
+      const confirmDelete = window.confirm("Are you sure you want to delete this grant?");
+      if (!confirmDelete) {
+          return; 
+      }
+  
+      try {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/grants/${grantId}`, {
+              method: 'DELETE'
+          });
+          if (response.ok) {
+              setMessage('Grant deleted successfully');
+              setGrants(grants.filter(grant => grant.id !== grantId));
+          } else {
+              const errorData = await response.json();
+              setMessage(errorData.error || 'Failed to delete grant');
+          }
+      } catch (error) {
+          console.error("Error deleting grant:", error);
+          setMessage("Failed to delete grant.");
+      }
+  };
+  
 
     return (
         <div>
