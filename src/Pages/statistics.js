@@ -9,7 +9,7 @@ function GrantStatusReport() {
     const [statusData, setStatusData] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:5000/reports/grant-status')
+        fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/reports/grant-status`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok " + response.statusText);
