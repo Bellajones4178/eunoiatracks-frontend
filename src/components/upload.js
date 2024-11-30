@@ -10,7 +10,8 @@ function GrantTable() {
 
     const fetchGrants = async () => {
         try {
-            const response = await fetch('http://localhost:5000/grants');
+            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/grants`);
+
             const data = await response.json();
             setGrants(data);
         } catch (error) {
@@ -21,7 +22,8 @@ function GrantTable() {
 
     const fetchGrantFiles = async (grantId) => {
         try {
-            const response = await fetch(`http://localhost:5000/grants/${grantId}/files`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/files`);
+
             const files = await response.json();
             return files;
         } catch (error) {
@@ -38,7 +40,7 @@ function GrantTable() {
         formData.append("file", file);
 
         try {
-            const response = await fetch(`http://localhost:5000/grants/${grantId}/upload`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/grants/${grantId}/upload`, {
                 method: 'POST',
                 body: formData,
             });
