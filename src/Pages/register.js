@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Register({ onRegister, message }) {
+function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (typeof onRegister === 'function') {
-      const success = await onRegister({ username, password, email });
-      if (success) {
-        navigate('/login'); // Redirect to login on successful registration
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password, email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setErrorMessage(''); // Clear any previous errors
+        navigate('/login'); // Redirect to login page on successful registration
+      } else {
+        setErrorMessage(data.error || 'Registration failed. Please try again.');
       }
-    } else {
-      console.error('onRegister is not a function');
+    } catch (error) {
+      console.error('Error during registration:', error);
+      setErrorMessage('An unexpected error occurred. Please try again later.');
     }
   };
 
@@ -28,7 +43,7 @@ function Register({ onRegister, message }) {
             <br />
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="msg">{message}</div>
+            {errorMessage && <div className="msg error">{errorMessage}</div>}
             <input
               id="username"
               name="username"

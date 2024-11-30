@@ -1,16 +1,35 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ onLogin, message }) => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await onLogin({ username, password });
-    if (success) {
-      navigate('/dashboard'); // Redirect to the dashboard or another page on success
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setErrorMessage(''); // Clear any previous errors
+        navigate('/dashboard'); // Redirect to the dashboard on success
+      } else {
+        setErrorMessage(data.error || 'Login failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setErrorMessage('An unexpected error occurred. Please try again later.');
     }
   };
 
@@ -18,12 +37,12 @@ const Login = ({ onLogin, message }) => {
     <div className="landing-background">
       <div className="form-tables">
         <div className="border">
-        <div style={{ textAlign: 'center'}}>
-            <h1 className='center'>Login</h1>
-            <br></br>
+          <div style={{ textAlign: 'center' }}>
+            <h1 className="center">Login</h1>
+            <br />
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="msg">{message}</div>
+            {errorMessage && <div className="msg error">{errorMessage}</div>}
             <input
               id="username"
               name="username"
@@ -49,7 +68,7 @@ const Login = ({ onLogin, message }) => {
           </p>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 
