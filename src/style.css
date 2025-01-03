@@ -1,14 +1,16 @@
 :root {
-  --DarkGreen: #638C3A;
+  --DarkGreen: #0E2F38;
   --LimeGreen: #B3D962;
   --DullGreen: #9EBF56;
   --PastelGreen: #C6D99C;
   --LightGray: #F2F2F2;
   --Blue:#062946 ;
   --lightBlue: #1976d2;
-  --clickgreen: #304b12;
+  --clickgreen: #4D818C;
   --hovergreen: #5c7a3e;
   }
+
+  #033f63, #28666e, #7c9885, #b5b682, #fedc97
 
 * {
     margin: 0;

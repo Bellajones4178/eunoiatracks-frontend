@@ -23,7 +23,6 @@ function Layout({ children }) {
         <div className="side-nav">
           <Link to="/dashboard" className="logo"> {/* Replace a with Link */}
             <img src={logo} alt="logo" />
-            <h1 className="roboto-bold">Eunoia</h1>
           </Link>
           <Navigation />
         </div>
